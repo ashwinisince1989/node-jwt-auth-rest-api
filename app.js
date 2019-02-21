@@ -1,8 +1,9 @@
-var createError = require('http-errors');
 var express = require('express');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser');
+
+var app = express();
+var usersRouter = require('./api/routes/user');
 
 //db configuration
 const mongoose = require('mongoose');
@@ -12,13 +13,8 @@ mongoose.connect('mongodb://ash:espo2050@ds141815.mlab.com:41815/quize_app')
    .then(() => console.log('connection successful'))
    .catch((err)=> console.error(err));
 
-var app = express();
-var usersRouter = require('./api/routes/users');
-
-
 //middleware set up
 app.use(logger('dev'));
-app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 

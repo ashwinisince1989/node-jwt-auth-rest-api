@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require("bcrypt");
 let UserSchema = new mongoose.Schema({
-     _id: mongoose.Schema.Types.ObjectId,
+    //  _id: mongoose.Schema.Types.ObjectId,
      name: {
         type: String,
         required: true
@@ -22,8 +22,17 @@ let UserSchema = new mongoose.Schema({
      },
      createdOn: {
       type:Date,
-      required: true
+      default: Date.now
      },
 });
 
+UserSchema.methods.encryptPassword = (password) => {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+}
+
+UserSchema.methods.validPassword = function(password,hash) {
+  console.log(password,hash)
+  return bcrypt.compareSync(password, hash);
+};
 module.exports = mongoose.model('User', UserSchema);
+module.exports.validate = UserSchema.methods.validPassword
