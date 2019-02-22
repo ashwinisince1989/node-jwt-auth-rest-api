@@ -10,12 +10,12 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //mongodb hosted on AWS by mLab
 mongoose.connect('mongodb://ash:espo2050@ds141815.mlab.com:41815/quize_app')
-   .then(() => console.log('connection successful'))
-   .catch((err)=> console.error(err));
+  .then(() => console.log('connection successful'))
+  .catch((err) => console.error(err));
 
 //middleware set up
 app.use(logger('dev'));
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/user', usersRouter);
