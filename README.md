@@ -14,10 +14,22 @@ This sample code design for creating REST web service in node with auth gurde an
 - Clone the repo by using git clone.
 - Run npm install on the cloned directory.
 - cahange your mLab credentials with your's in this line 
-  mongoose.connect('mongodb://ash:espo2050@ds141815.mlab.com:41815/quize_app')
-- Install nodemon by command >>npm install nodemon and 
-- Start server using command >>nodemon start 
 
+```sh 
+mongoose.connect('mongodb://ash:espo2050@ds141815.mlab.com:41815/quize_app')
+```
+
+- Install nodemon by command 
+
+```sh 
+>>npm install nodemon 
+```
+
+- Start server using command 
+
+```sh 
+>>nodemon start 
+```
 
 # mLab User Schema
 ```sh
