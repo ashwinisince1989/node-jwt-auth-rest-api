@@ -38,10 +38,10 @@ router.post("/signup", (req, res, next) => {
       user.password = user.encryptPassword(req.body.password)
       user.save((err, result) => {
         err ? res.status(500).send({
-            message: "Registration process fail.",
-            error_code: "200",
-            status: false
-          })
+          message: "Registration process fail.",
+          error_code: "200",
+          status: false
+        })
           : res.status(200).send({
             message: "Registraion sucessfull.",
             error_code: "200",
@@ -59,22 +59,22 @@ router.post("/login", (req, res, next) => {
       res.status(500).send(err);
     } else if (!user) {
       res.status(403).send({
-          message: "Invalid username or password.",
-          error_code: "200",
-          status: false,
+        message: "Invalid username or password.",
+        error_code: "200",
+        status: false,
       });
-    } else {   
-        let _validate = validate(req.body.password, user.password);
-        !_validate ? res.status(403).send(
+    } else {
+      let _validate = validate(req.body.password, user.password);
+      !_validate ? res.status(403).send(
         {
           message: "Incorrect password",
           error_code: "200",
           status: false
         }) : res.status(200).send({
-            message: "Auth successful",
-            error_code: "200",
-            status: true,
-            token: getToken(user)
+          message: "Auth successful",
+          error_code: "200",
+          status: true,
+          token: getToken(user)
         });
     }
   });
@@ -91,14 +91,14 @@ router.put("/update_profile", checkAuth, (req, res, next) => {
         status: false
       });
     } else {
-      var myquery = { email: user.email};
-      var newvalues = { "$set" :{name:req.body.name,phone:req.body.phone}};
-      User.update(myquery,newvalues,(err, result) => {
+      var myquery = { email: user.email };
+      var newvalues = { "$set": { name: req.body.name, phone: req.body.phone } };
+      User.update(myquery, newvalues, (err, result) => {
         err ? res.status(500).send({
-            message: err,
-            error_code: "200",
-            status: false
-          })
+          message: err,
+          error_code: "200",
+          status: false
+        })
           : res.status(200).send({
             message: "Profile updated sucessfull.",
             error_code: "200",
@@ -109,16 +109,17 @@ router.put("/update_profile", checkAuth, (req, res, next) => {
     }
   });
 });
-router.delete("/", checkAuth, (req, res, next) => {
-  User.deleteOne({ email: req.params.email }, (err) =>{
 
-    if(err){
+
+router.delete("/delete", checkAuth, function (req, res) {
+  User.deleteOne({ email: req.body.email }, (err) => {
+    if (err) {
       res.status(500).send({
         message: err,
         error_code: "200",
         status: false
       })
-    }else{
+    } else {
       res.status(200).send({
         message: "User deleted sucessfull.",
         error_code: "200",

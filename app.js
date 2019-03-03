@@ -4,12 +4,13 @@ const bodyParser = require('body-parser');
 
 var app = express();
 var usersRouter = require('./api/routes/user');
-
+var leaderRouter = require('./api/routes/leader');
+var partyRouter = require('./api/routes/party');
 //db configuration
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //mongodb hosted on AWS by mLab
-mongoose.connect('mongodb://ash:espo2050@ds141815.mlab.com:41815/quize_app')
+mongoose.connect('mongodb://ashwini:ashwini123@ds149365.mlab.com:49365/janpatrika')
   .then(() => console.log('connection successful'))
   .catch((err) => console.error(err));
 
@@ -19,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/user', usersRouter);
+app.use('/leader', leaderRouter);
+app.use('/party', partyRouter);
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
